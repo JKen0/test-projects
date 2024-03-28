@@ -15,6 +15,8 @@ function App() {
         'Toronto'
     ]
 
+    const [showAlert, setShowAlert] = useState(false);
+
     const handleSelectItem = (item: string) => {{
       console.log(item);
     }}
@@ -22,13 +24,10 @@ function App() {
     return (
         <div>
           <ListGroup items={items} heading="Cities" onSelectItem={handleSelectItem} />    
-          <Alert>
-            Hello <span>World</span>
-          </Alert>
-          <Button buttonText = "Primary" buttonType='primary' />
-          <Button buttonText = "Secondary" buttonType='secondary' />
-          <Button buttonText = "Success" buttonType='success' />
-          <Button buttonText = "Danger" buttonType='danger' />
+          {showAlert && <Alert onClickCloseButton={() => {setShowAlert(false)}}>Hello <span>World</span> DinkDonk!</Alert>}
+
+
+          <Button buttonText = "Primary" onClick={() => {setShowAlert(true)}} />
         </div>
     )
 }
