@@ -2,16 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GradesGrid from '../components/GradesGrid';
 import axios from 'axios';
 import testData from '../testData/convertcsv.json';
-
-interface GridDataInterface {
-  CourseCode: string;
-  CourseName: string;
-  Term: string;
-  Grade: string;
-  Units: number;
-  Status: string;
-  Description: string;
-}
+import { GridDataInterface } from '../Types/GridDataTypes';
 
 
 const GradesPage = () => {

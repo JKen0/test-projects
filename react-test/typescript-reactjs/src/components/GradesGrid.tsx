@@ -1,17 +1,8 @@
-interface GridDataInterface {
-  CourseCode: string;
-  CourseName: string;
-  Term: string;
-  Grade: string;
-  Units: number;
-  Status: string;
-  Description: string;
-}
+import { GridDataInterface } from "../Types/GridDataTypes";
 
 interface Props {
   gridData: GridDataInterface[];
 }
-
 
 const GradesGrid = ({ gridData }: Props) => {
 
