@@ -15,7 +15,6 @@ const GradesPage = () => {
         setJsonData(testData);
         console.log('hello world');
       } catch (error) {
-
         console.error('Error fetching data:', error);
       }
     };
