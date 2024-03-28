@@ -1,0 +1,515 @@
+[
+ {
+   "CourseCode": "CAS 701",
+   "CourseName": "Logic & Discrete Mathematics",
+   "Term": "2023 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "CAS 720",
+   "CourseName": "Future Resilient Databases",
+   "Term": "2022 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "CAS 737",
+   "CourseName": "Computer Animation",
+   "Term": "2023 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "CAS 738",
+   "CourseName": "Algebraic Methods in Software Engineering and Computer Science",
+   "Term": "2023 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "CAS 745",
+   "CourseName": "Supervisory Control of Discrete-Event Systems",
+   "Term": "2023 Winter",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "CAS 751",
+   "CourseName": "Information-Theoretic Methods in Trustworthy Machine Learning",
+   "Term": "2022 Fall",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMMERCE 1AA3",
+   "CourseName": "Introductory Financial Accounting",
+   "Term": "2017 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMMERCE 2FA3",
+   "CourseName": "Introduction to Finance",
+   "Term": "2018 Fall",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMMERCE 3FA3",
+   "CourseName": "Managerial Finance",
+   "Term": "2019 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMPSCI 1DM3",
+   "CourseName": "Discrete Math for Computer Science",
+   "Term": "2022 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMPSCI 2C03",
+   "CourseName": "Data Structures & Algorithms",
+   "Term": "2021 Fall",
+   "Grade": "CR",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMPSCI 2DB3",
+   "CourseName": "Databases",
+   "Term": "2022 Winter",
+   "Grade": "B-",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "COMPSCI 3DM3",
+   "CourseName": "Introduction to Data Mining",
+   "Term": "2022 Winter",
+   "Grade": "B",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 1B03",
+   "CourseName": "Introductory Microeconomics",
+   "Term": "2018 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 1BB3",
+   "CourseName": "Introductory Macroeconomics",
+   "Term": "2017 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 2A03",
+   "CourseName": "Economics of Labour-Market Issues",
+   "Term": "2020 Spring/Summer",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 2G03",
+   "CourseName": "Intermediate Microeconomics I",
+   "Term": "2018 Spring/Summer",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 2GG3",
+   "CourseName": "Intermediate Microeconomics II",
+   "Term": "2019 Spring/Summer",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 2H03",
+   "CourseName": "Intermediate Macroeconomics I",
+   "Term": "2018 Spring/Summer",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "ECON 3M03",
+   "CourseName": "Introduction to Game Theory",
+   "Term": "2019 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "KOREAN 1Z03",
+   "CourseName": "Introductory Korean I",
+   "Term": "2020 Fall",
+   "Grade": "CR",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 1B03",
+   "CourseName": "Linear Algebra 1",
+   "Term": "2017 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 1C03",
+   "CourseName": "Introduction to Mathematical Reasoning",
+   "Term": "2017 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 1MP3",
+   "CourseName": "Introduction to Mathematical Scientific Computation",
+   "Term": "2018 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 1X03",
+   "CourseName": "Calculus For Math & Stats I",
+   "Term": "2017 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 1XX3",
+   "CourseName": "Calculus For Math & Stats II",
+   "Term": "2018 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 2C03",
+   "CourseName": "Introduction to Differential Equations",
+   "Term": "2019 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 2FM3",
+   "CourseName": "Introduction To Mathematical Finance",
+   "Term": "2018 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 2R03",
+   "CourseName": "Linear Algebra II",
+   "Term": "2018 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 2X03",
+   "CourseName": "Advanced Calculus I",
+   "Term": "2018 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 3A03",
+   "CourseName": "Introduction to Real Analysis",
+   "Term": "2019 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 3CY3",
+   "CourseName": "Cryptography",
+   "Term": "2021 Winter",
+   "Grade": "B",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 3FM3",
+   "CourseName": "Mathematical Finance",
+   "Term": "2019 Fall",
+   "Grade": "B",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 3H03",
+   "CourseName": "Number Theory",
+   "Term": "2022 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 3MB3",
+   "CourseName": "Introduction To Modelling",
+   "Term": "2020 Fall",
+   "Grade": "A-",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "MATH 4FM3",
+   "CourseName": "Financial Markets and Derivatives",
+   "Term": "2021 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "PHYSICS 1A03",
+   "CourseName": "Introductory Physics",
+   "Term": "2018 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SCIENCE 2C00",
+   "CourseName": "Skills for Career Success in Science",
+   "Term": "2019 Winter",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SCIENCE 3C00",
+   "CourseName": "Advanced Job Search Skills For Science Co-op Students",
+   "Term": "2019 Fall",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SCIENCE 3WT0",
+   "CourseName": "Science Co-op Work Term",
+   "Term": "2020 Winter",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SCIENCE 3WT0",
+   "CourseName": "Science Co-op Work Term",
+   "Term": "2020 Spring/Summer",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SCIENCE 4WT0",
+   "CourseName": "Science Co-op Work Term",
+   "Term": "2021 Spring/Summer",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SCIENCE 5WT0",
+   "CourseName": "Science Co-op Work Term",
+   "Term": "2021 Fall",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SEP 740",
+   "CourseName": "Deep Learning",
+   "Term": "2023 Spring/Summer",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SGS 101",
+   "CourseName": "Academic Research Integrity and Ethics",
+   "Term": "2022 Fall",
+   "Grade": "P",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SGS 201",
+   "CourseName": "AODA Training",
+   "Term": "2022 Fall",
+   "Grade": "P",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "SGS 700",
+   "CourseName": "Research / Writing",
+   "Term": "2023 Spring/Summer",
+   "Grade": "",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 2B03",
+   "CourseName": "Statistical Methods for Science",
+   "Term": "2018 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 2D03",
+   "CourseName": "Introduction to Probability",
+   "Term": "2018 Fall",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 2MB3",
+   "CourseName": "Statistical Methods and Applications",
+   "Term": "2019 Winter",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 3A03",
+   "CourseName": "Applied Regression Analysis with SAS",
+   "Term": "2019 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 3D03",
+   "CourseName": "Mathematical Statistics I",
+   "Term": "2019 Fall",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 3DS3",
+   "CourseName": "Introduction to Data Science Theory",
+   "Term": "2021 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 3G03",
+   "CourseName": "Actuarial Math I",
+   "Term": "2020 Fall",
+   "Grade": "A-",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 3PG3",
+   "CourseName": "Probability and Games of Chance",
+   "Term": "2019 Fall",
+   "Grade": "A",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "STATS 3ST3",
+   "CourseName": "Actuarial Models in Non-Life Insurance",
+   "Term": "2021 Winter",
+   "Grade": "A+",
+   "Units": 3,
+   "Status": "",
+   "Description": ""
+ },
+ {
+   "CourseCode": "WHMIS 1A00",
+   "CourseName": "Introduction to Health and Safety",
+   "Term": "2018 Winter",
+   "Grade": "COM",
+   "Units": 0,
+   "Status": "",
+   "Description": ""
+ }
+]

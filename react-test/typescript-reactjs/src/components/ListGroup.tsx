@@ -18,7 +18,7 @@ function ListGroup({items, heading, onSelectItem }: Props) {
     
     
     return (
-        <>
+        <div>
             <h1>{heading}</h1>
             {getMessage()}
 
@@ -36,7 +36,7 @@ function ListGroup({items, heading, onSelectItem }: Props) {
                     </li>
                 ))}
             </ul>
-        </>
+        </div>
     );
 }
 
