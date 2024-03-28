@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import ListGroup from './components/ListGroup';
-import Alert from './components/Alert';
-import Button from './components/Button';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import NavBar from './components/NavBar';
+import HomePage from './Pages/HomePage';
+import GradesPage from './Pages/GradesPage';
+import NotFoundPage from './Pages/NotFoundPage';
 
 function App() {
-    const items = [
-        'New York',
-        'San Franciso',
-        'Tokyo',
-        'Paris', 
-        'London',
-        'Toronto'
-    ]
-
-    const [showAlert, setShowAlert] = useState(false);
-
-    const handleSelectItem = (item: string) => {{
-      console.log(item);
-    }}
-
-    return (
-        <div>
-          <ListGroup items={items} heading="Cities" onSelectItem={handleSelectItem} />    
-          {showAlert && <Alert onClickCloseButton={() => {setShowAlert(false)}}>Hello <span>World</span> DinkDonk!</Alert>}
 
 
-          <Button buttonText = "Primary" onClick={() => {setShowAlert(true)}} />
-        </div>
-    )
+  return (
+    <Router> {/* Ensure that the Router wraps your entire application */}
+        <Routes>
+          <Route path="/" element={<NavBar />}>
+            <Route index element={<HomePage />} />
+            <Route path="/grades" element={<GradesPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+    </Router>
+  );
 }
 
 export default App;
