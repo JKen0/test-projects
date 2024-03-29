@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ListGroup from '../components/ListGroup';
 import Alert from '../components/Alert';
 import Button from '../components/Button';
+import 'bootstrap/dist/css/bootstrap.css'
 
 const HomePage = () => {
     const items = [

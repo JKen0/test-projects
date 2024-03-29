@@ -1,5 +1,4 @@
 import { GridDataInterface } from "../Types/GridDataTypes";
-import Table from 'react-bootstrap/Table';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -27,7 +26,7 @@ const GradesGrid = ({ gridData }: Props) => {
   return (
     <div>
       <h2>Grades Table</h2>
-      <Table striped bordered hover variant="dark" >
+      <table>
         <thead>
           <tr>
             <th>+</th>
@@ -44,7 +43,7 @@ const GradesGrid = ({ gridData }: Props) => {
           {/* Dynamically render table rows */}
           {renderTableRows()}
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }
