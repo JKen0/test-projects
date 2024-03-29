@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import HomePage from './Pages/HomePage';
 import GradesPage from './Pages/GradesPage';
-import NotFoundPage from './Pages/NotFoundPage';
+import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 
 const App = () => {
 
