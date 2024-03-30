@@ -12,7 +12,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 61px);
+        /* Subtract height of the navbar from viewport height */
 }
 
 .content {

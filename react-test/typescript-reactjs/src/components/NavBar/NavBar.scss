@@ -4,7 +4,8 @@ ul {
     padding-bottom: 0;
     overflow: hidden;
     background-color: #6F4E37;
-        margin-bottom: 3px;
+    margin-bottom: 3px !important;
+    padding-left: 0rem !important;
 }
 
 li {
@@ -15,8 +16,9 @@ li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 14px;
+    padding: 14px 17px;
     text-decoration: none;
+    height: 58px;
 }
 
 /* Change the link color to #111 (black) on hover */

@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation  } from "react-router-dom";
 import React, { useEffect } from 'react';
 
-import './NavBar.css';
+import './NavBar.scss';
 
 
 const getWebsiteTitle = (pathname : string) => {
