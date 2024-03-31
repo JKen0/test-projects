@@ -20,16 +20,7 @@ const client = new tmi.Client({
 client.connect();
 
 
-
 client.on('message', (channel, tags, message, self) => {
-    console.log(tags);
-
-    /*
-    if (!self) {
-        console.log(tags);
-        console.log(message);
-    }
-    */
 
     if (self || !message.startsWith('!')) {
         return;
@@ -38,14 +29,30 @@ client.on('message', (channel, tags, message, self) => {
     const args = message.slice(1).split(' ');
     const command = args.shift().toLowerCase();
 
-
     if (command === 'echo') {
         client.say(channel, `@${tags.username}, you said: ${args.join(' ')}`);
+
     } else if (command === 'hello') {
         client.say(channel, `@${tags.username}, Yo what's up`);
+
     } else if (command === 'dice') {
-        const result = Math.floor(Math.random() * 6) + 1;
-        client.say(channel, `@${tags.username}, You rolled a ${result}.`);
+        console.log(args);
+        numRolls = args.length > 0 ? args[0] : 1;
+        maxDiceNum = args.length > 1 ? args[1] : 6;
+
+        if (!Number.isInteger(parseInt(numRolls)) || !Number.isInteger(parseInt(maxDiceNum))) {
+            client.say(channel, `@${tags.username}, Invalid Dice Format`);
+            return;
+        }
+
+        let result = [];
+        while (result.length < numRolls) {
+            const randomNumber = Math.floor(Math.random() * maxDiceNum) + 1;
+            result.push(randomNumber);
+        }
+
+        client.say(channel, `@${tags.username}, You rolled a ${result.join(' ')} GAMBA`);
+
     } else if (command === 'timer') {
         const regex = /^!timer\s+(\d+)\s*(\w*)\s*(?:"([^"]*)")?$/;
         const match = message.match(regex);
