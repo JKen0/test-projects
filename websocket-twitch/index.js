@@ -1,6 +1,10 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
+const SpotifyWebApi = require('spotify-web-api-node');
+
+
 const { startTimer } = require('./timer');
+const { refreshAccessToken, getCurrentSong } = require('./spotify');
 
 
 const client = new tmi.Client({
@@ -17,10 +21,11 @@ const client = new tmi.Client({
 });
 
 
+
 client.connect();
 
 
-client.on('message', (channel, tags, message, self) => {
+client.on('message', async (channel, tags, message, self) => {
 
     if (self || !message.startsWith('!')) {
         return;
@@ -29,18 +34,36 @@ client.on('message', (channel, tags, message, self) => {
     const args = message.slice(1).split(' ');
     const command = args.shift().toLowerCase();
 
+
+    // ECHO LOGIC
     if (command === 'echo') {
-        client.say(channel, `@${tags.username}, you said: ${args.join(' ')}`);
+        client.reply(channel, `@${tags.username}, you said: ${args.join(' ')}`, tags.id);
 
-    } else if (command === 'hello') {
-        client.say(channel, `@${tags.username}, Yo what's up`);
 
+        // NOW PLAYING LOGIC
+    } else if (command === 'np') {
+
+        // Get currently playing track
+        await refreshAccessToken();
+
+        const getSongInfo = await getCurrentSong();
+
+        if (getSongInfo.song != "") {
+            client.reply(channel, `@${tags.username}, Current Song: ${getSongInfo.song} by ${getSongInfo.artists.join(', ')}`, tags.id);
+            return;
+        } else {
+            client.reply(channel, `@${tags.username}, No song playing.`, tags.id);
+            return;
+        }
+
+
+        // DICE LOGIC
     } else if (command === 'dice') {
         numRolls = args.length > 0 ? args[0] : 1;
         maxDiceNum = args.length > 1 ? args[1] : 6;
 
         if (!Number.isInteger(parseInt(numRolls)) || !Number.isInteger(parseInt(maxDiceNum))) {
-            client.reply(channel, `@${tags.username}, Invalid Dice Format`);
+            client.reply(channel, `@${tags.username}, Invalid Dice Format`, tags.id);
             return;
         }
 
@@ -52,12 +75,13 @@ client.on('message', (channel, tags, message, self) => {
 
         client.reply(channel, `@${tags.username}, You rolled a ${result.join(' ')} GAMBA`, tags.id);
 
+        // TIMER LOGIC
     } else if (command === 'timer') {
-        const regex = /^!timer\s+(\d+)\s*(\w*)\s*(?:"([^"]*)")?$/;
+        const regex = /^!timer\s+(\d+)\s*(?:(@\w+(?:_\w*)?)?\s*)?(?:"([^"]*)")?$/;
         const match = message.match(regex);
 
         if (!match) {
-            client.say(channel, `@${tags.username} Invalid Timer Format.`);
+            client.reply(channel, `@${tags.username} Invalid Timer Format.`, tags.id);
             return;
         }
 
@@ -65,7 +89,7 @@ client.on('message', (channel, tags, message, self) => {
         timerUser = timerUser ? timerUser : tags.username;
 
         startTimer(timerUser, timerDuration, () => {
-            client.say(channel, `@${timerUser}, Time Is Up DinkDonk Timer Expired DinkDonk ${timerMessage ? timerMessage : ''}`);
+            client.say(channel, `${timerUser[0] === '@' ? '' : '@'}${timerUser}, Time Is Up DinkDonk Timer Expired DinkDonk ${timerMessage ? timerMessage : ''}`);
         });
 
         client.reply(channel, `@${tags.username}, Your ${timerDuration} minute timer has been set Waiting`, tags.id);
