@@ -36,12 +36,11 @@ client.on('message', (channel, tags, message, self) => {
         client.say(channel, `@${tags.username}, Yo what's up`);
 
     } else if (command === 'dice') {
-        console.log(args);
         numRolls = args.length > 0 ? args[0] : 1;
         maxDiceNum = args.length > 1 ? args[1] : 6;
 
         if (!Number.isInteger(parseInt(numRolls)) || !Number.isInteger(parseInt(maxDiceNum))) {
-            client.say(channel, `@${tags.username}, Invalid Dice Format`);
+            client.reply(channel, `@${tags.username}, Invalid Dice Format`);
             return;
         }
 
@@ -51,7 +50,7 @@ client.on('message', (channel, tags, message, self) => {
             result.push(randomNumber);
         }
 
-        client.say(channel, `@${tags.username}, You rolled a ${result.join(' ')} GAMBA`);
+        client.reply(channel, `@${tags.username}, You rolled a ${result.join(' ')} GAMBA`, tags.id);
 
     } else if (command === 'timer') {
         const regex = /^!timer\s+(\d+)\s*(\w*)\s*(?:"([^"]*)")?$/;
@@ -69,7 +68,7 @@ client.on('message', (channel, tags, message, self) => {
             client.say(channel, `@${timerUser}, Time Is Up DinkDonk Timer Expired DinkDonk ${timerMessage ? timerMessage : ''}`);
         });
 
-        client.say(channel, `@${tags.username}, Your ${timerDuration} minute timer has been set Waiting`);
+        client.reply(channel, `@${tags.username}, Your ${timerDuration} minute timer has been set Waiting`, tags.id);
     }
 });
 
