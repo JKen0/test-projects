@@ -41,7 +41,7 @@ client.on('message', async (channel, tags, message, self) => {
 
 
         // NOW PLAYING LOGIC
-    } else if (command === 'np') {
+    } else if (command === 'np' || command === 'nowplaying') {
 
         // Get currently playing track
         await refreshAccessToken();
@@ -49,7 +49,7 @@ client.on('message', async (channel, tags, message, self) => {
         const getSongInfo = await getCurrentSong();
 
         if (getSongInfo.song != "") {
-            client.reply(channel, `@${tags.username}, Current Song: ${getSongInfo.song} by ${getSongInfo.artists.join(', ')}`, tags.id);
+            client.reply(channel, `@${tags.username}, Current Song: ${getSongInfo.song} by ${getSongInfo.artists.join(', ')} Jamm`, tags.id);
             return;
         } else {
             client.reply(channel, `@${tags.username}, No song playing.`, tags.id);
