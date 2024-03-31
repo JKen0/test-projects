@@ -25,7 +25,7 @@ const NavBar = () => {
   return (
     <div>
 
-      <ul style={{ marginBottom: "3px" }}>
+      <ul>
         <li>
           <Link to="/">
             <picture>
