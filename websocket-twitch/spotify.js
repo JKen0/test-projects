@@ -46,7 +46,7 @@ async function getCurrentSong() {
         }
     });
 
-    if (response.data.item) {
+    if (response.data.item && response.data.is_playing === true) {
         result["song"] = response.data.item.name;
 
         response.data.item.artists.map(artist => {
