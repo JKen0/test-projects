@@ -20,8 +20,6 @@ const client = new tmi.Client({
     channels: JSON.parse(process.env.TWITCH_CHANNELS)
 });
 
-
-
 client.connect();
 
 
