@@ -1,5 +1,3 @@
-const axios = require('axios');
-const querystring = require('querystring');
 const fs = require('fs').promises;
 const { get, post } = require('./axios');
 require('dotenv').config();
@@ -36,10 +34,8 @@ async function refreshAccessToken() {
 }
 
 async function getCurrentSong() {
-    let result = { song: "", artists: [] }
-    const tokenDataString = await fs.readFile(process.env.SPOTIFY_TOKEN_SECRET_FILEPATH);
-    const tokenDataParse = JSON.parse(tokenDataString);
-    const access_token = tokenDataParse.access_token;
+    let result = { song: "", artists: [] };
+    const access_token = await fetchAccessToken();
 
     const getCallConfig = {
         headers: {
@@ -63,9 +59,7 @@ async function getCurrentSong() {
 
 async function getPreviousSong() {
     let result = { song: "", artists: [] }
-    const tokenDataString = await fs.readFile(process.env.SPOTIFY_TOKEN_SECRET_FILEPATH);
-    const tokenDataParse = JSON.parse(tokenDataString);
-    const access_token = tokenDataParse.access_token;
+    const access_token = await fetchAccessToken();
 
     const getCallConfig = {
         headers: {
@@ -88,5 +82,13 @@ async function getPreviousSong() {
 
     return result;
 }
+
+async function fetchAccessToken() {
+    const tokenDataString = await fs.readFile(process.env.SPOTIFY_TOKEN_SECRET_FILEPATH);
+    const tokenDataParse = JSON.parse(tokenDataString);
+    const access_token = tokenDataParse.access_token;
+
+    return access_token;
+}; 
 
 module.exports = { refreshAccessToken, getCurrentSong, getPreviousSong };
