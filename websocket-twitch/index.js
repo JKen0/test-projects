@@ -24,7 +24,6 @@ client.connect();
 
 
 client.on('message', async (channel, tags, message, self) => {
-
     if (self || !message.startsWith('!')) {
         return;
     }
@@ -32,10 +31,10 @@ client.on('message', async (channel, tags, message, self) => {
     const args = message.slice(1).split(' ');
     const command = args.shift().toLowerCase();
 
-
     // ECHO LOGIC
     if (command === 'echo') {
         client.reply(channel, `@${tags.username}, you said: ${args.join(' ')}`, tags.id);
+        return;
 
 
         // NOW PLAYING LOGIC
@@ -86,6 +85,8 @@ client.on('message', async (channel, tags, message, self) => {
         }
 
         client.reply(channel, `@${tags.username}, You rolled a ${result.join(' ')} GAMBA`, tags.id);
+        return;
+
 
         // TIMER LOGIC
     } else if (command === 'timer') {
@@ -105,6 +106,7 @@ client.on('message', async (channel, tags, message, self) => {
         });
 
         client.reply(channel, `@${tags.username}, Your ${timerDuration} minute timer has been set Waiting`, tags.id);
-    }
+        return;
+
 });
 
