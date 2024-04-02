@@ -4,7 +4,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 
 
 const { startTimer } = require('./timer');
-const { refreshAccessToken, getCurrentSong } = require('./spotify');
+const { refreshAccessToken, getCurrentSong, getPreviousSong } = require('./spotify');
 
 
 const client = new tmi.Client({
@@ -50,10 +50,24 @@ client.on('message', async (channel, tags, message, self) => {
             client.reply(channel, `@${tags.username}, Current Song: ${getSongInfo.song} by ${getSongInfo.artists.join(', ')} Jamm`, tags.id);
             return;
         } else {
-            client.reply(channel, `@${tags.username}, No song playing.`, tags.id);
+            client.reply(channel, `@${tags.username}, No song playing Oopsie`, tags.id);
             return;
         }
 
+    } else if (command === 'ps' || command === 'previoussong') {
+
+        // Get currently playing track
+        await refreshAccessToken();
+
+        const getSongInfo = await getPreviousSong();
+
+        if (getSongInfo.song != "") {
+            client.reply(channel, `@${tags.username}, Previous Song: ${getSongInfo.song} by ${getSongInfo.artists.join(', ')} Okayge`, tags.id);
+            return;
+        } else {
+            client.reply(channel, `@${tags.username}, No previous song on record Oopsie`, tags.id);
+            return;
+        }
 
         // DICE LOGIC
     } else if (command === 'dice') {

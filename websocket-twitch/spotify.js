@@ -41,11 +41,10 @@ async function getCurrentSong() {
     const tokenDataParse = JSON.parse(tokenDataString);
     const access_token = tokenDataParse.access_token;
 
-
     const getCallConfig = {
         headers: {
             Authorization: `Bearer ${access_token}`
-        }        
+        }
     }
 
     // Make request to Spotify API to get currently playing song
@@ -62,4 +61,32 @@ async function getCurrentSong() {
     return result;
 }
 
-module.exports = { refreshAccessToken, getCurrentSong };
+async function getPreviousSong() {
+    let result = { song: "", artists: [] }
+    const tokenDataString = await fs.readFile(process.env.SPOTIFY_TOKEN_SECRET_FILEPATH);
+    const tokenDataParse = JSON.parse(tokenDataString);
+    const access_token = tokenDataParse.access_token;
+
+    const getCallConfig = {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    }
+
+    const response = await get('https://api.spotify.com/v1/me/player/recently-played', getCallConfig);
+
+    // Extract the most recent track from the list
+    const lastPlayedTrack = response.items[0].track;
+
+    if (lastPlayedTrack.name) {
+        result["song"] = lastPlayedTrack.name;
+
+        lastPlayedTrack.artists.map(artist => {
+            result["artists"].push(artist.name);
+        });
+    };
+
+    return result;
+}
+
+module.exports = { refreshAccessToken, getCurrentSong, getPreviousSong };
