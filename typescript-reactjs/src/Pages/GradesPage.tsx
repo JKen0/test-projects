@@ -13,7 +13,7 @@ const GradesPage = () => {
     const fetchData = async () => {
       try {
         setJsonData(testData);
-        console.log('hello world');
+        console.log('get test data');
       } catch (error) {
         console.error('Error fetching data:', error);
       }

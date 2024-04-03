@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import NavBar from './components/NavBar/NavBar';
 import HomePage from './Pages/HomePage';
@@ -8,9 +10,15 @@ import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 
 const App = () => {
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
   return (
-    <div>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route index element={<HomePage />} />
@@ -18,7 +26,7 @@ const App = () => {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-    </div>
+    </ThemeProvider>
   );
 }
 
