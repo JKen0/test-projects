@@ -9,4 +9,3 @@ export interface GridDataInterface {
   Status: string;
   Description: string;
 }
-

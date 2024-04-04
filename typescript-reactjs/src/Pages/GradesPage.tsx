@@ -3,6 +3,7 @@ import GradesGrid from '../components/GradesGrid';
 import axios from 'axios';
 import testData from '../testData/convertcsv.json';
 import { GridDataInterface } from '../Types/GridDataTypes';
+import GridFilterBar from '../components/GridFilterBar';
 
 
 const GradesPage = () => {
@@ -24,6 +25,7 @@ const GradesPage = () => {
 
   return (
     <div>
+      <GridFilterBar />
       <GradesGrid gridData={jsonData} />
     </div>
   )

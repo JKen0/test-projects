@@ -15,6 +15,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from '@mui/utils';
+import { CheckCircle } from '@mui/icons-material';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -71,6 +72,12 @@ const headCells: readonly HeadCell[] = [
     label: 'Units',
     sortable: false
   },
+  {
+    id: "Status",
+    disablePadding: false,
+    label: 'Status',
+    sortable: false
+  }
 ];
 
 function EnhancedTableHead(props: EnhancedTableProps) {
@@ -133,6 +140,9 @@ const MasterRow = ({ row }: MasterRowProps) => {
         <TableCell>{row.Term}</TableCell>
         <TableCell>{row.Grade}</TableCell>
         <TableCell>{`${row.Units}.00`}</TableCell>
+        <TableCell>
+          <CheckCircle fontSize="medium" />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
