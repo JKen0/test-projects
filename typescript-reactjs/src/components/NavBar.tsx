@@ -56,7 +56,7 @@ const NavBar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link style={{ color: "white", textDecoration: "none" }} to="/">WAAA</Link>
+                        <Link style={{ color: "white", textDecoration: "none" }} to="/">JKen</Link>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

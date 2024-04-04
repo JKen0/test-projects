@@ -7,7 +7,7 @@ import GridFilterBar from '../components/GridFilterBar';
 
 
 const GradesPage = () => {
-  const [jsonData, setJsonData] = useState<GridDataInterface[]>([]);
+  const [jsonData, setJsonData] = useState<GridDataInterface[]>(testData);
 
   useEffect(() => {
     // Fetch JSON data from your API or local file
