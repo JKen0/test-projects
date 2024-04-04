@@ -9,10 +9,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { visuallyHidden } from '@mui/utils';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -20,6 +22,95 @@ interface Props {
 
 interface MasterRowProps {
   row: GridDataInterface;
+}
+
+type Order = 'asc' | 'desc';
+
+interface EnhancedTableProps {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof GridDataInterface) => void;
+  order: Order;
+  orderBy: string;
+  rowCount: number;
+}
+
+interface HeadCell {
+  disablePadding: boolean;
+  id: keyof GridDataInterface;
+  label: string;
+  sortable: boolean;
+}
+
+const headCells: readonly HeadCell[] = [
+  {
+    id: 'CourseCode',
+    disablePadding: true,
+    label: 'Course Code',
+    sortable: true
+  },
+  {
+    id: 'CourseName',
+    disablePadding: false,
+    label: 'Course Name',
+    sortable: true
+  },
+  {
+    id: 'Term',
+    disablePadding: false,
+    label: 'Term',
+    sortable: true
+  },
+  {
+    id: 'Grade',
+    disablePadding: false,
+    label: 'Grade',
+    sortable: false
+  },
+  {
+    id: 'Units',
+    disablePadding: false,
+    label: 'Units',
+    sortable: false
+  },
+];
+
+function EnhancedTableHead(props: EnhancedTableProps) {
+  const { order, orderBy, rowCount, onRequestSort } = props;
+  const createSortHandler =
+    (property: keyof GridDataInterface) => (event: React.MouseEvent<unknown>) => {
+      onRequestSort(event, property);
+    };
+
+  return (
+    <TableHead>
+      <TableRow>
+        <TableCell />
+        {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            {headCell.sortable ? (
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            ) : (
+              <div>{headCell.label}</div>
+            )}
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
 }
 
 const MasterRow = ({ row }: MasterRowProps) => {
@@ -41,7 +132,7 @@ const MasterRow = ({ row }: MasterRowProps) => {
         <TableCell>{row.CourseName}</TableCell>
         <TableCell>{row.Term}</TableCell>
         <TableCell>{row.Grade}</TableCell>
-        <TableCell>{row.Units}</TableCell>
+        <TableCell>{`${row.Units}.00`}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -61,24 +152,79 @@ const MasterRow = ({ row }: MasterRowProps) => {
   );
 }
 
+
+
+
 const GradesGrid = ({ gridData }: Props) => {
-  const [open, setOpen] = useState(false);
+  const [gridRows, setGridRows] = useState<GridDataInterface[]>(gridData);
+  const [order, setOrder] = useState<Order>('asc');
+  const [orderBy, setOrderBy] = useState<keyof GridDataInterface>('CourseCode');
+
+  // SORTING LOGIC
+  useEffect(() => {
+    const sortedData = [...gridData].sort((a, b) => {
+      const isAsc = order === 'asc';
+
+      if (orderBy === 'Term') {
+        // Define the order of seasons
+        const seasonsOrder = ['Winter', 'Spring/Summer', 'Fall'];
+
+        // Split terms into year and season
+        const [yearA, seasonA] = a.Term.split(' ');
+        const [yearB, seasonB] = b.Term.split(' ');
+
+        // Get the index of the season in the seasonsOrder array
+        const indexA = seasonsOrder.indexOf(seasonA);
+        const indexB = seasonsOrder.indexOf(seasonB);
+
+        // convert back to string
+        const newA = `${yearA}-${indexA}`
+        const newB = `${yearB}-${indexB}`
+
+        if (newA < newB) {
+          return isAsc ? -1 : 1;
+        }
+        if (newA > newB) {
+          return isAsc ? 1 : -1;
+        }
+        return 0;
+
+      } else {
+        if (a[orderBy] < b[orderBy]) {
+          return isAsc ? -1 : 1;
+        }
+        if (a[orderBy] > b[orderBy]) {
+          return isAsc ? 1 : -1;
+        }
+        return 0;
+      }
+    });
+
+    console.log('hello');
+    // Update the gridData state variable with the sorted data
+    setGridRows(sortedData);
+  }, [order, orderBy]);
+
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof GridDataInterface,
+  ) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table" stickyHeader>
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Course Name</TableCell>
-            <TableCell>Course Code</TableCell>
-            <TableCell>Term</TableCell>
-            <TableCell>Grade</TableCell>
-            <TableCell>Credits</TableCell>
-          </TableRow>
-        </TableHead>
+        <EnhancedTableHead
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+          rowCount={gridData.length}
+        />
         <TableBody>
-          {gridData.map((row) =>
+          {gridRows.map((row) =>
             <MasterRow key={`${row.CourseCode}${row.Term}`} row={row} />
           )}
         </TableBody>
@@ -86,5 +232,7 @@ const GradesGrid = ({ gridData }: Props) => {
     </TableContainer>
   );
 }
+
+
 
 export default GradesGrid
