@@ -48,7 +48,6 @@ const GradesPage = () => {
     }
   };
 
-
   // Function to fetch unique values along with count from gridData
   const fetchUniqueValuesWithCount = (data: GridDataInterface[]) => {
     const departmentMap: Map<string, number> = new Map();
@@ -80,16 +79,16 @@ const GradesPage = () => {
     departmentsWithCount.sort((a, b) => a.department.localeCompare(b.department));
     careersWithCount.sort((a, b) => a.career.localeCompare(b.career));
 
+
+    // set initial filter options
     setFilterOptions({
       ...filterOptions,
       careerOptions: careersWithCount,
       departmentOptions: departmentsWithCount
-    })
+    });
 
-
-    return;
+    return true;
   };
-
 
   const handleDataFilter = () => {
     const newFilteredData = jsonData.filter(item => {
@@ -105,45 +104,30 @@ const GradesPage = () => {
 
   useEffect(() => {
     // Fetch JSON data from your API or local file
-    const fetchData = () => {
-      try {
-        setJsonData(testData);
-        console.log('got test data');
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-    setFilteredData(jsonData);
+    setJsonData(testData);
+    console.log('got test data');
   }, []);
 
-
   useEffect(() => {
-    // Call fetchUniqueValuesWithCount only when jsonData changes
-    if (jsonData.length > 0) {
-      fetchUniqueValuesWithCount(jsonData);
-
-      setSelectedFilters({
-        ...selectedFilters,
-        careerFilter: "All",
-        departmentFilter: filterOptions.departmentOptions.map(item => item.department)
-      });
-
-
-    }
-
+    fetchUniqueValuesWithCount(jsonData);
     setFilteredData(jsonData);
   }, [jsonData]);
 
+  useEffect(() => {
+  // set initial selected filters
+    setSelectedFilters({
+      ...selectedFilters,
+      careerFilter: "All",
+      departmentFilter: filterOptions.departmentOptions.map(item => item.department)
+    });
+  }, [filterOptions]);
 
   useEffect(() => {
     // when filters change, filter the data accordingly 
     handleDataFilter();
-  }, [selectedFilters]);
 
-  console.log('this is filteredData');
-  console.log(filteredData);
+  }, [selectedFilters.departmentFilter, selectedFilters.careerFilter]);
+
 
   return (
     <div style={{ minWidth: "800px" }}>

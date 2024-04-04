@@ -181,9 +181,6 @@ const GradesGrid = ({ gridData }: Props) => {
     setOrderBy(property);
   };
 
-  console.log('gridRows from gradesgrid');
-  console.log(gridRows);
-
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table" stickyHeader>
