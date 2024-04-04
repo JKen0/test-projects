@@ -29,9 +29,6 @@ const HomePage = () => {
           <Button buttonText = "Primary" onClick={() => {setShowAlert(true)}} />
 
 
-        <picture>
-          <img height={30} src="https://cdn.7tv.app/emote/643c96089137f98b004c8d5f/2x.webp" />
-        </picture>
         </div>
     )
 }

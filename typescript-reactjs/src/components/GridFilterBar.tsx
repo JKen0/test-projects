@@ -16,7 +16,6 @@ interface GridFilterBarProps {
 }
 
 const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange }: GridFilterBarProps) => {
-
     return (
         <div>
             <FormControl sx={{ m: 1, minWidth: 175 }}>
@@ -25,9 +24,9 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange }: G
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     value={selectedFilters.gridLayoutFilter}
-                    label="Grid Layout"
                     onChange={handleFilterChange}
                     name="filterGridLayout"
+                    defaultValue={selectedFilters.gridLayoutFilter}
                 >
                     <MenuItem value={"normal"}>Normal</MenuItem>
                     <MenuItem value={"term-grouping"}>Group By Term</MenuItem>
@@ -38,11 +37,10 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange }: G
                 <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    value={selectedFilters.careerFilter}
-                    label="Degree"
                     onChange={handleFilterChange}
                     name="filterCareer"
-                    defaultValue={selectedFilters.careerFilter}
+                    value={selectedFilters.careerFilter}
+
                 >
                     {filterOptions.careerOptions.map((ele, index) => (
                         <MenuItem key={index} value={ele.career} >{`${ele.career} Courses (${ele.count})`}</MenuItem>

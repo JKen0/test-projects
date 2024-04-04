@@ -16,7 +16,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from '@mui/utils';
 import { CheckCircle } from '@mui/icons-material';
-import { Order } from '../Types/GridDataTypes';
+import { Order, headCells } from '../Types/GridDataTypes';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -33,51 +33,6 @@ interface EnhancedTableProps {
   rowCount: number;
 }
 
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof GridDataInterface;
-  label: string;
-  sortable: boolean;
-}
-
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'CourseCode',
-    disablePadding: true,
-    label: 'Course Code',
-    sortable: true
-  },
-  {
-    id: 'CourseName',
-    disablePadding: false,
-    label: 'Course Name',
-    sortable: true
-  },
-  {
-    id: 'Term',
-    disablePadding: false,
-    label: 'Term',
-    sortable: true
-  },
-  {
-    id: 'Grade',
-    disablePadding: false,
-    label: 'Grade',
-    sortable: false
-  },
-  {
-    id: 'Units',
-    disablePadding: false,
-    label: 'Units',
-    sortable: false
-  },
-  {
-    id: "Status",
-    disablePadding: false,
-    label: 'Status',
-    sortable: false
-  }
-];
 
 // THIS DEAL WITH TABLE HEAD AND SORTING
 const EnhancedTableHead = (props: EnhancedTableProps) => {
@@ -178,7 +133,7 @@ const GradesGrid = ({ gridData }: Props) => {
 
   // SORTING LOGIC
   useEffect(() => {
-    const sortedData = [...gridData].sort((a, b) => {
+    const sortedData = [...gridRows].sort((a, b) => {
       const isAsc = order === 'asc';
 
       if (orderBy === 'Term') {
@@ -216,7 +171,6 @@ const GradesGrid = ({ gridData }: Props) => {
       }
     });
 
-    console.log('sorting update');
     // Update the gridData state variable with the sorted data
     setGridRows(sortedData);
   }, [order, orderBy]);
@@ -226,6 +180,9 @@ const GradesGrid = ({ gridData }: Props) => {
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+  console.log('gridRows from gradesgrid');
+  console.log(gridRows);
 
   return (
     <TableContainer component={Paper}>

@@ -36,3 +36,49 @@ export interface SelectedFilterInterface {
   careerFilter: string;
   departmentFilter: string[];
 }
+
+interface HeadCell {
+  disablePadding: boolean;
+  id: keyof GridDataInterface;
+  label: string;
+  sortable: boolean;
+}
+
+export const headCells: readonly HeadCell[] = [
+  {
+    id: 'CourseCode',
+    disablePadding: true,
+    label: 'Course Code',
+    sortable: true
+  },
+  {
+    id: 'CourseName',
+    disablePadding: false,
+    label: 'Course Name',
+    sortable: true
+  },
+  {
+    id: 'Term',
+    disablePadding: false,
+    label: 'Term',
+    sortable: true
+  },
+  {
+    id: 'Grade',
+    disablePadding: false,
+    label: 'Grade',
+    sortable: false
+  },
+  {
+    id: 'Units',
+    disablePadding: false,
+    label: 'Units',
+    sortable: false
+  },
+  {
+    id: "Status",
+    disablePadding: false,
+    label: 'Status',
+    sortable: false
+  }
+];

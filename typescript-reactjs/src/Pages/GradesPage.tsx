@@ -20,7 +20,7 @@ const GradesPage = () => {
 
   const [selectedFilters, setSelectedFilters] = useState({
     gridLayoutFilter: "normal" as GridLayoutTypes,
-    careerFilter: "All",
+    careerFilter: "",
     departmentFilter: filterOptions.departmentOptions.map(item => item.department)
   });
 
@@ -126,6 +126,7 @@ const GradesPage = () => {
 
       setSelectedFilters({
         ...selectedFilters,
+        careerFilter: "All",
         departmentFilter: filterOptions.departmentOptions.map(item => item.department)
       });
 
@@ -135,13 +136,14 @@ const GradesPage = () => {
     setFilteredData(jsonData);
   }, [jsonData]);
 
+
   useEffect(() => {
     // when filters change, filter the data accordingly 
     handleDataFilter();
   }, [selectedFilters]);
 
-
-
+  console.log('this is filteredData');
+  console.log(filteredData);
 
   return (
     <div style={{ minWidth: "800px" }}>
