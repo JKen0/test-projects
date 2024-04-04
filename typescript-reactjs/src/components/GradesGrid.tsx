@@ -16,6 +16,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from '@mui/utils';
 import { CheckCircle } from '@mui/icons-material';
+import { Order } from '../Types/GridDataTypes';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -24,8 +25,6 @@ interface Props {
 interface MasterRowProps {
   row: GridDataInterface;
 }
-
-type Order = 'asc' | 'desc';
 
 interface EnhancedTableProps {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof GridDataInterface) => void;
@@ -80,7 +79,8 @@ const headCells: readonly HeadCell[] = [
   }
 ];
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+// THIS DEAL WITH TABLE HEAD AND SORTING
+const EnhancedTableHead = (props: EnhancedTableProps) => {
   const { order, orderBy, rowCount, onRequestSort } = props;
   const createSortHandler =
     (property: keyof GridDataInterface) => (event: React.MouseEvent<unknown>) => {
@@ -120,6 +120,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
+// THIS DEALS WITH GRID ROWS AND ABILIT TO EXPAND EACH ROW
 const MasterRow = ({ row }: MasterRowProps) => {
   const [open, setOpen] = useState(false);
 
@@ -164,11 +165,16 @@ const MasterRow = ({ row }: MasterRowProps) => {
 
 
 
-
+// THIS IS THE OUTER MAIN GRID
 const GradesGrid = ({ gridData }: Props) => {
   const [gridRows, setGridRows] = useState<GridDataInterface[]>(gridData);
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof GridDataInterface>('CourseCode');
+
+  useEffect(() => {
+    setGridRows(gridData)
+  }, [gridData])
+
 
   // SORTING LOGIC
   useEffect(() => {
@@ -210,15 +216,12 @@ const GradesGrid = ({ gridData }: Props) => {
       }
     });
 
-    console.log('hello');
+    console.log('sorting update');
     // Update the gridData state variable with the sorted data
     setGridRows(sortedData);
   }, [order, orderBy]);
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof GridDataInterface,
-  ) => {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof GridDataInterface,) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);

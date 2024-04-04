@@ -6,38 +6,16 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { FilterOptionInterface, SelectedFilterInterface } from '../Types/GridDataTypes';
 
 
-type GridLayoutTypes = "normal" | "term-grouping";
+interface GridFilterBarProps {
+    filterOptions: FilterOptionInterface;
+    selectedFilters: SelectedFilterInterface,
+    handleFilterChange: (event: SelectChangeEvent) => void;
+}
 
-const departmantNames = [
-    'Mathematics & Statistics',
-    'Computing & Software',
-    'Economics',
-    'Korean',
-    'Physics',
-
-];
-
-
-const GridFilterBar = () => {
-    const [gridLayout, setGridLayout] = useState<GridLayoutTypes>("normal");
-    const [careerFilter, setCareerFilter] = useState("all");
-    const [selectedDepartments, setSelectedDepartments] = useState<string[]>(departmantNames);
-
-    const handleFilterChange = (event: SelectChangeEvent) => {
-        const filterName = event.target.name;
-        const newValue = event.target.value;
-
-        if (filterName == "filterGridLayout") {
-            const newGridLayOutOption = event.target.value as GridLayoutTypes;
-            setGridLayout(newGridLayOutOption);
-        } else if (filterName == "filterCareer") {
-            setCareerFilter(newValue);
-        } else if (filterName == "filterName") {
-            setSelectedDepartments(typeof newValue === 'string' ? newValue.split(',') : newValue);
-        }
-    };
+const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange }: GridFilterBarProps) => {
 
     return (
         <div>
@@ -46,7 +24,7 @@ const GridFilterBar = () => {
                 <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    value={gridLayout}
+                    value={selectedFilters.gridLayoutFilter}
                     label="Grid Layout"
                     onChange={handleFilterChange}
                     name="filterGridLayout"
@@ -55,47 +33,48 @@ const GridFilterBar = () => {
                     <MenuItem value={"term-grouping"}>Group By Term</MenuItem>
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 250 }}>
+            <FormControl sx={{ m: 1, minWidth: 275 }}>
                 <InputLabel id="demo-simple-select-helper-label">Academic Career</InputLabel>
                 <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    value={careerFilter}
+                    value={selectedFilters.careerFilter}
                     label="Degree"
                     onChange={handleFilterChange}
                     name="filterCareer"
+                    defaultValue={selectedFilters.careerFilter}
                 >
-                    <MenuItem value={"all"}>All</MenuItem>
-                    <MenuItem value={"graduate"}>Graduate Courses</MenuItem>
-                    <MenuItem value={"undergraduate"}>Undergraduate Courses</MenuItem>
+                    {filterOptions.careerOptions.map((ele, index) => (
+                        <MenuItem key={index} value={ele.career} >{`${ele.career} Courses (${ele.count})`}</MenuItem>
+                    ))}
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, width: 250 }}>
+            <FormControl sx={{ m: 1, width: 300 }}>
                 <InputLabel id="demo-multiple-checkbox-label">Department</InputLabel>
                 <Select
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
-                    value={selectedDepartments}
+                    value={selectedFilters.departmentFilter}
                     onChange={handleFilterChange}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => {
                         if (selected.length === 1) {
                             return selected[0];
-                        } else if (selected.length == departmantNames.length) {
+                        } else if (selected.length == filterOptions.departmentOptions.length) {
                             return "All Departments Selected";
                         } else if (selected.length > 1) {
                             return `${selected.length} Departments Selected`;
                         } else {
-                            return ''; // Return an empty string if no items are selected
+                            return 'No Departments Selected'; // Return an empty string if no items are selected
                         }
                     }}
-                    name="filterName"
+                    name="filterDepartments"
                 >
-                    {departmantNames.map((name) => (
-                        <MenuItem key={name} value={name}>
-                            <Checkbox checked={selectedDepartments.indexOf(name) > -1} />
-                            <ListItemText primary={name} />
+                    {filterOptions.departmentOptions.map((ele) => (
+                        <MenuItem key={ele.department} value={ele.department}>
+                            <Checkbox checked={selectedFilters.departmentFilter.includes(ele.department)} />
+                            <ListItemText>{`${ele.department} (${ele.count})`}</ListItemText>
                         </MenuItem>
                     ))}
                 </Select>

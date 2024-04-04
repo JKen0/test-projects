@@ -45,7 +45,6 @@ const NavBar = () => {
                         variant="h6"
                         noWrap
                         component="a"
-
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -55,8 +54,9 @@ const NavBar = () => {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+                        href="/"
                     >
-                        <Link style={{ color: "white", textDecoration: "none" }} to="/">JKen</Link>
+                        JKen0
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -88,11 +88,18 @@ const NavBar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Link style={{ color: "white", textDecoration: "none" }} to="/">Home</Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Link style={{ color: "white", textDecoration: "none" }} to="grades">Grades</Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Link style={{ color: "white", textDecoration: "none" }} to="music">Music</Link>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Link style={{ color: "white", textDecoration: "none" }} to="game">Game</Link>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -100,7 +107,7 @@ const NavBar = () => {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -112,7 +119,7 @@ const NavBar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        JKen0
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
@@ -122,7 +129,7 @@ const NavBar = () => {
                         </Button>
                         <Button
                             sx={{ my: 2, color: 'white', display: 'block' }}
-                            href="/grades"
+
                         >
                             <Link style={{ color: "white", textDecoration: "none" }} to="grades">Grades</Link>
                         </Button>
@@ -134,7 +141,7 @@ const NavBar = () => {
                         <Button
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            <Link style={{ color: "white", textDecoration: "none" }} to="gamme">Game</Link>
+                            <Link style={{ color: "white", textDecoration: "none" }} to="game">Game</Link>
                         </Button>
                     </Box>
 
