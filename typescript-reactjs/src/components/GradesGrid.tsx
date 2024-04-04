@@ -17,6 +17,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from '@mui/utils';
 import { CheckCircle } from '@mui/icons-material';
 import { Order, headCells } from '../Types/GridDataTypes';
+import TablePagination from '@mui/material/TablePagination';
+import TableFooter from '@mui/material/TableFooter';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -182,21 +184,23 @@ const GradesGrid = ({ gridData }: Props) => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table" stickyHeader>
-        <EnhancedTableHead
-          order={order}
-          orderBy={orderBy}
-          onRequestSort={handleRequestSort}
-          rowCount={gridData.length}
-        />
-        <TableBody>
-          {gridRows.map((row) =>
-            <MasterRow key={`${row.CourseCode}${row.Term}`} row={row} />
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table" stickyHeader size={"small"}>
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={gridData.length}
+          />
+          <TableBody>
+            {gridRows.map((row) =>
+              <MasterRow key={`${row.CourseCode}${row.Term}`} row={row} />
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 

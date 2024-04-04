@@ -128,10 +128,18 @@ const GradesPage = () => {
 
   }, [selectedFilters.departmentFilter, selectedFilters.careerFilter]);
 
+  const resetFilters = () => {
+    setSelectedFilters({
+      gridLayoutFilter: "normal",
+      careerFilter: "All",
+      departmentFilter: filterOptions.departmentOptions.map(item => item.department)
+    });
+  };
+
 
   return (
     <div style={{ minWidth: "800px" }}>
-      <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} />
+      <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} resetFilters={resetFilters} />
       <GradesGrid gridData={filteredData} />
     </div>
   )

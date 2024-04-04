@@ -7,15 +7,16 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { FilterOptionInterface, SelectedFilterInterface } from '../Types/GridDataTypes';
-
+import Button from '@mui/material/Button';
 
 interface GridFilterBarProps {
     filterOptions: FilterOptionInterface;
     selectedFilters: SelectedFilterInterface,
     handleFilterChange: (event: SelectChangeEvent) => void;
+    resetFilters: () => void;
 }
 
-const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange }: GridFilterBarProps) => {
+const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, resetFilters }: GridFilterBarProps) => {
     return (
         <div>
             <FormControl sx={{ m: 1, minWidth: 175 }}>
@@ -77,6 +78,13 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange }: G
                     ))}
                 </Select>
             </FormControl>
+            <Button
+                sx={{ m: 1, width: 65, height: 54, marginLeft: 2 }} // Adjust marginLeft to push the button to the right
+                variant="outlined"
+                onClick={resetFilters}
+            >
+                RESET
+            </Button>
         </div>
     );
 }
