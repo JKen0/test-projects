@@ -8,6 +8,8 @@ const getWebsiteTitle = (pathname: string) => {
     return 'Home';
   } else if (pathname === '/grades') {
     return 'Grades';
+  } else if (pathname === '/spotify') {
+    return 'Spotify';
   } else {
     return 'Not Found';
   }
@@ -17,7 +19,7 @@ const Layout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = `${getWebsiteTitle(location.pathname)}`;
+    document.title = `JKen0: ${getWebsiteTitle(location.pathname)}`;
   }, [location]);
 
   return (

@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
 
-const pages = ['Home', 'Grades', 'Music',];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const NavBar = () => {
@@ -95,7 +94,7 @@ const NavBar = () => {
                                 <Link style={{ color: "white", textDecoration: "none" }} to="grades">Grades</Link>
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu}>
-                                <Link style={{ color: "white", textDecoration: "none" }} to="music">Music</Link>
+                                <Link style={{ color: "white", textDecoration: "none" }} to="spotify">Spotify</Link>
                             </MenuItem>
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Link style={{ color: "white", textDecoration: "none" }} to="game">Game</Link>
@@ -136,7 +135,7 @@ const NavBar = () => {
                         <Button
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            <Link style={{ color: "white", textDecoration: "none" }} to="music">Music</Link>
+                            <Link style={{ color: "white", textDecoration: "none" }} to="spotify">Spotify</Link>
                         </Button>
                         <Button
                             sx={{ my: 2, color: 'white', display: 'block' }}
