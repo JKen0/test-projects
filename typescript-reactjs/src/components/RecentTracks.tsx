@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useRef } from 'react'
 import { Typography } from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -38,15 +38,31 @@ const getTimeDifference = (currentTime: Date, playedTime: string): string => {
 const RecentTracks = ({ data }: RecentTracksProps) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [nowPlayingIndex, setNowPlayingIndex] = useState<number>(-1);
     const currentTime = new Date();
+    const audioRefs = useRef<(HTMLAudioElement | null)[]>([]); // Define the type of the ref object
 
     const handleChangePage = (event: unknown, newPage: number) => {
+        setNowPlayingIndex(-1);
         setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
+    };
+
+    const togglePlay = (index: number) => {
+        if (nowPlayingIndex === index) {
+            audioRefs.current[index]?.pause(); // Pause the audio if it's already playing
+            setNowPlayingIndex(-1);
+        } else {
+            if (nowPlayingIndex !== -1) {
+                audioRefs.current[nowPlayingIndex]?.pause(); // Pause the currently playing audio
+            }
+            audioRefs.current[index]?.play(); // Start playing the clicked audio
+            setNowPlayingIndex(index);
+        }
     };
 
     return (
@@ -70,7 +86,12 @@ const RecentTracks = ({ data }: RecentTracksProps) => {
                                     key={`${index}-${row.name}`}
                                 >
                                     <TableCell component="th" scope="row">
-                                        <PlayCircleFilledWhiteOutlinedIcon />
+                                        {nowPlayingIndex === index ? (
+                                            <PauseCircleOutlineOutlinedIcon onClick={() => togglePlay(index)} style={{ cursor: 'pointer' }} />
+                                        ) : (
+                                            <PlayCircleFilledWhiteOutlinedIcon onClick={() => togglePlay(index)} style={{ cursor: 'pointer' }} />
+                                        )}
+                                        <audio ref={(el) => (audioRefs.current[index] = el)} src={row.linkPreview} />
                                     </TableCell>
                                     <TableCell>
                                         <Box sx={{ width: 32, height: 32 }}>

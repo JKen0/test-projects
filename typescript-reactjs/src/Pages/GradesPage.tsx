@@ -125,7 +125,7 @@ const GradesPage = () => {
   useEffect(() => {
     // Fetch JSON data from your API or local file
     setJsonData(gradesdata);
-    console.log('got test data');
+    console.log('got test grade data');
   }, []);
 
   useEffect(() => {

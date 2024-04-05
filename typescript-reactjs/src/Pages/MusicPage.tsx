@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import spotifydata from '../testData/spotifydata.json';
 import Container from '@mui/material/Container';
 
@@ -10,7 +10,18 @@ import { SpotifyDataInterface } from '../Types/MusicTypes';
 
 
 const MusicPage = () => {
-    const [jsonData, setJsonData] = useState<SpotifyDataInterface>(spotifydata);
+    const [jsonData, setJsonData] = useState<SpotifyDataInterface>({
+        previousSongs: [],
+        topSongs: [],
+        topArtists: [],
+    });
+
+    useEffect(() => {
+        // Fetch JSON data from your API or local file
+        const parsedData = spotifydata as SpotifyDataInterface;
+        setJsonData(parsedData);
+        console.log('got test spotify data');
+    }, []);
 
 
     return (
