@@ -8,6 +8,7 @@ import GridFilterBar from '../components/GridFilterBar';
 import { FilterOptionInterface, GridLayoutTypes, CareerCount, DepartmentCount } from '../Types/GridDataTypes';
 import { json } from 'react-router-dom';
 import { SelectChangeEvent } from '@mui/material/Select';
+import GradesHelpModal from '../components/GradesHelpModal';
 
 const GradesPage = () => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -16,6 +17,15 @@ const GradesPage = () => {
   const [jsonData, setJsonData] = useState<GridDataInterface[]>([]);
   const [filteredData, setFilteredData] = useState<GridDataInterface[]>([]);
   const [disableFilters, setDisableFilters] = useState<boolean>(false);
+  const [modalShowing, setSetModalShowing] = useState<boolean>(false);
+
+  const openModal = () => {
+    setSetModalShowing(true);
+  }
+
+  const closeModal = () => {
+    setSetModalShowing(false);
+  }
 
   const [filterOptions, setFilterOptions] = useState<FilterOptionInterface>({
     careerOptions: [] as CareerCount[],
@@ -170,12 +180,12 @@ const GradesPage = () => {
     });
   };
 
-
   return (
     <div style={{ minWidth: "800px" }}>
       <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} resetFilters={resetFilters} disableFilters={disableFilters} />
-      {selectedFilters.gridLayoutFilter === "normal" && <GradesGrid gridData={filteredData} />}
-      {selectedFilters.gridLayoutFilter === "term-grouping" && <GradesGridGrouping gridData={jsonData} />}
+      {selectedFilters.gridLayoutFilter === "normal" && <GradesGrid gridData={filteredData} setModalOpen={openModal} />}
+      {selectedFilters.gridLayoutFilter === "term-grouping" && <GradesGridGrouping gridData={jsonData} setModalOpen={openModal} />}
+      <GradesHelpModal open={modalShowing} handleClose={closeModal} />
     </div>
   )
 }

@@ -18,9 +18,13 @@ import { visuallyHidden } from '@mui/utils';
 import { CheckCircle } from '@mui/icons-material';
 import { Order, headCells } from '../Types/GridDataTypes';
 import Tooltip from '@mui/material/Tooltip';
+import InfoIcon from '@mui/icons-material/Info';
+
+import GradesHelpModal from './GradesHelpModal';
 
 interface Props {
   gridData: GridDataInterface[];
+  setModalOpen: () => void;
 }
 
 interface MasterRowProps {
@@ -32,12 +36,13 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
+  setModalOpen: () => void;
 }
 
 
 // THIS DEAL WITH TABLE HEAD AND SORTING
 const EnhancedTableHead = (props: EnhancedTableProps) => {
-  const { order, orderBy, rowCount, onRequestSort } = props;
+  const { order, orderBy, rowCount, onRequestSort, setModalOpen } = props;
   const createSortHandler =
     (property: keyof GridDataInterface) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
@@ -54,22 +59,31 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
             sortDirection={orderBy === headCell.id ? order : false}
             style={{ fontSize: "large" }}
           >
-            {headCell.sortable ? (
-              <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : 'asc'}
-                onClick={createSortHandler(headCell.id)}
-              >
-                {headCell.label}
-                {orderBy === headCell.id ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
-            ) : (
-              <div>{headCell.label}</div>
-            )}
+            {(() => {
+              if (headCell.sortable) {
+                return (
+                  <TableSortLabel
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : 'asc'}
+                    onClick={createSortHandler(headCell.id)}
+                  >
+                    {headCell.label}
+                    {orderBy === headCell.id && (
+                      <Box component="span" sx={visuallyHidden}>
+                        {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                      </Box>
+                    )}
+                  </TableSortLabel>
+                );
+              } else if (headCell.id === 'Grade') {
+                return (
+                  <div>{headCell.label} <IconButton onClick={setModalOpen}><InfoIcon fontSize="small" style={{ marginTop: '-3px' }} /></IconButton></div>
+                );
+              } else {
+                return <div>{headCell.label}</div>;
+              }
+            })()}
+
           </TableCell>
         ))}
       </TableRow>
@@ -125,14 +139,14 @@ const MasterRow = ({ row }: MasterRowProps) => {
 
 
 // THIS IS THE OUTER MAIN GRID
-const GradesGrid = ({ gridData }: Props) => {
+const GradesGrid = ({ gridData, setModalOpen }: Props) => {
   const [gridRows, setGridRows] = useState<GridDataInterface[]>(gridData);
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof GridDataInterface>('CourseCode');
 
   useEffect(() => {
     setGridRows(gridData)
-  }, [gridData])
+  }, [gridData]);
 
 
   // SORTING LOGIC
@@ -194,6 +208,7 @@ const GradesGrid = ({ gridData }: Props) => {
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
             rowCount={gridData.length}
+            setModalOpen={setModalOpen}
           />
           <TableBody>
             {gridRows.map((row) =>

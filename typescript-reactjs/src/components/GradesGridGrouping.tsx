@@ -15,10 +15,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { CheckCircle } from '@mui/icons-material';
 import Tooltip from '@mui/material/Tooltip';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 interface Props {
     gridData: GridDataInterface[];
+    setModalOpen: () => void;
 }
 
 interface GroupingGridDataInterface {
@@ -49,8 +51,12 @@ const groupDataByTerm = (data: GridDataInterface[]): GroupingGridDataInterface[]
     return groupedData;
 }
 
+interface MasterTableHeadInterface {
+    setModalOpen: () => void
+}
+
 // THIS DEAL WITH TABLE HEAD AND SORTING
-const MasterTableHead = () => {
+const MasterTableHead = ({ setModalOpen }: MasterTableHeadInterface) => {
 
     return (
         <TableHead>
@@ -58,7 +64,7 @@ const MasterTableHead = () => {
                 <TableCell style={{ fontSize: "large" }} padding={"normal"} ></TableCell>
                 <TableCell style={{ fontSize: "large" }} padding={"normal"} >Course Code</TableCell>
                 <TableCell style={{ fontSize: "large" }} padding={"normal"} >Course Name</TableCell>
-                <TableCell style={{ fontSize: "large" }} padding={"normal"} >Grade</TableCell>
+                <TableCell style={{ fontSize: "large" }} padding={"normal"} >Grade  <IconButton onClick={setModalOpen}><InfoIcon fontSize="small" style={{ marginTop: '-3px' }} /></IconButton></TableCell>
                 <TableCell style={{ fontSize: "large" }} padding={"normal"} >Units</TableCell>
                 <TableCell style={{ fontSize: "large" }} padding={"normal"} >Status</TableCell>
             </TableRow>
@@ -152,7 +158,7 @@ const MasterTableRows = ({ gridRows }: MasterTableeRowsProps) => {
 };
 
 
-const GradesGridGrouping = ({ gridData }: Props) => {
+const GradesGridGrouping = ({ gridData, setModalOpen }: Props) => {
     const [gridRows, setGridRows] = useState<GroupingGridDataInterface[]>([]);
 
     useEffect(() => {
@@ -191,7 +197,7 @@ const GradesGridGrouping = ({ gridData }: Props) => {
         <>
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table" stickyHeader size={"small"}>
-                    <MasterTableHead />
+                    <MasterTableHead setModalOpen={setModalOpen} />
                     <TableBody>
                         <MasterTableRows gridRows={gridRows} />
                     </TableBody>
