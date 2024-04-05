@@ -61,8 +61,17 @@ const RecentTracks = ({ data }: RecentTracksProps) => {
                 audioRefs.current[nowPlayingIndex]?.pause(); // Pause the currently playing audio
             }
             audioRefs.current[index]?.play(); // Start playing the clicked audio
+
+            if (audioRefs.current[index] !== null && audioRefs.current[index] !== undefined) {
+                audioRefs.current[index]!.volume = 0.2;
+            }
+
             setNowPlayingIndex(index);
         }
+    };
+
+    const handleAudioEnding = () => {
+        setNowPlayingIndex(-1);
     };
 
     return (
@@ -91,7 +100,7 @@ const RecentTracks = ({ data }: RecentTracksProps) => {
                                         ) : (
                                             <PlayCircleFilledWhiteOutlinedIcon onClick={() => togglePlay(index)} style={{ cursor: 'pointer' }} />
                                         )}
-                                        <audio ref={(el) => (audioRefs.current[index] = el)} src={row.linkPreview} />
+                                        <audio ref={(el) => (audioRefs.current[index] = el)} src={row.linkPreview} onEnded={handleAudioEnding} />
                                     </TableCell>
                                     <TableCell>
                                         <Box sx={{ width: 32, height: 32 }}>
