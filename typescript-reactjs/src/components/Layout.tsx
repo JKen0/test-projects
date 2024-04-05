@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useEffect } from 'react';
-import NavBar from "../NavBar";
+import NavBar from "./NavBar";
 
 const getWebsiteTitle = (pathname: string) => {
 
@@ -19,7 +19,7 @@ const Layout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = `JKen0: ${getWebsiteTitle(location.pathname)}`;
+    document.title = `${getWebsiteTitle(location.pathname)}`;
   }, [location]);
 
   return (

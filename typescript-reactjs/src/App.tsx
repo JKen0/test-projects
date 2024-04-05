@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import Layout from './components/Layout/Layout';
+import Layout from './components/Layout';
 import HomePage from './Pages/HomePage';
 import GradesPage from './Pages/GradesPage';
 import MusicPage from './Pages/MusicPage';
