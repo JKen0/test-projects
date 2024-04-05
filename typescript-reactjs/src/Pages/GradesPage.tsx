@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import GradesGrid from '../components/GradesGrid';
 import GradesGridGrouping from '../components/GradesGridGrouping';
 import axios from 'axios';
-import testData from '../testData/convertcsv.json';
+import gradesdata from '../testData/gradesdata.json';
 import { GridDataInterface } from '../Types/GridDataTypes';
 import GridFilterBar from '../components/GridFilterBar';
 import { FilterOptionInterface, GridLayoutTypes, CareerCount, DepartmentCount } from '../Types/GridDataTypes';
@@ -124,7 +124,7 @@ const GradesPage = () => {
 
   useEffect(() => {
     // Fetch JSON data from your API or local file
-    setJsonData(testData);
+    setJsonData(gradesdata);
     console.log('got test data');
   }, []);
 
