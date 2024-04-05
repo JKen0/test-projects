@@ -5,6 +5,9 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+const fs = require('fs');
+const path = require('path');
+
 const { refreshAccessToken, fetchAccessToken } = require('./spotify');
 const { get, post } = require('./axios');
 
@@ -134,7 +137,6 @@ app.get('/getspotifydata', async function (req, res) {
     const getTopArtists = await get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=5', getCallConfig);
 
     getPreviousSongPlayed.items.map((item) => {
-        console.log(item.track.played_at)
         result.previousSongs.push({
             name: item.track.name,
             timePlayed: item.played_at,
@@ -162,8 +164,19 @@ app.get('/getspotifydata', async function (req, res) {
         });
     });
 
-    res.json(result);
 
+    // Convert the object to JSON format
+    const jsonData = JSON.stringify(result, null, 2);
+
+
+    // Write the JSON data to the file
+    fs.writeFile(process.env.SPOTIFY_TEST_DATA_FILEPATH, jsonData, (err) => {
+        if (err) {
+            res.status(400).json(err);
+        } else {
+            res.status(200).json(result);
+        }
+    });
 });
 
 
