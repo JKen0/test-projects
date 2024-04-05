@@ -18,6 +18,7 @@ const MusicPage = () => {
             <RecentTracks data={jsonData.previousSongs} />
             <TopArtists data={jsonData.topArtists} />
             <TopSongs data={jsonData.topSongs} />
+            <div style={{ height: '150px' }}></div>
         </Container>
     )
 }

@@ -38,17 +38,19 @@ const TopArtists = ({ data }: TopArtistsProps) => {
                     {data.map((item, index) => (
                         <ImageListItem key={item.name} cols={numRowsCol(index)} rows={numRowsCol(index)}>
                             <Card>
-                                <CardMedia
-                                    component="img"
-                                    image={item.artistPic}
-                                    title={item.name}
-                                    style={{ maxWidth: `${numRowsCol(index) * 225}px`, maxHeight: `${numRowsCol(index) * 225}px` }}
-                                />
-                                <CardContent style={{ padding: '8px' }}>
-                                    <Typography variant="h6" component="div">
-                                        {`${index + 1}. ${item.name}`}
-                                    </Typography>
-                                </CardContent>
+                                <a href={item.linkSpotify} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <CardMedia
+                                        component="img"
+                                        image={item.artistPic}
+                                        title={item.name}
+                                        style={{ maxWidth: `${numRowsCol(index) * 225}px`, maxHeight: `${numRowsCol(index) * 225}px` }}
+                                    />
+                                    <CardContent style={{ padding: '8px' }}>
+                                        <Typography variant="h6" component="div">
+                                            {`${index + 1}. ${item.name}`}
+                                        </Typography>
+                                    </CardContent>
+                                </a>
                             </Card>
                         </ImageListItem>
                     ))}

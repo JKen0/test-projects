@@ -74,10 +74,16 @@ const RecentTracks = ({ data }: RecentTracksProps) => {
                                     </TableCell>
                                     <TableCell>
                                         <Box sx={{ width: 32, height: 32 }}>
-                                            <img src={row.albumPic} alt="Image" style={{ width: '32px', height: '32px', objectFit: 'cover' }} />
+                                            <a href={row.linkSpotify} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                <img src={row.albumPic} alt="Image" style={{ width: '32px', height: '32px', objectFit: 'cover' }} />
+                                            </a>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>{row.name}</TableCell>
+                                    <TableCell>
+                                        <a href={row.linkSpotify} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            {row.name}
+                                        </a>
+                                    </TableCell>
                                     <TableCell>{row.artists}</TableCell>
                                     <TableCell>{getTimeDifference(currentTime, row.timePlayed)}</TableCell>
                                 </TableRow>
