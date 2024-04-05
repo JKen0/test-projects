@@ -77,7 +77,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
                 );
               } else if (headCell.id === 'Grade') {
                 return (
-                  <div>{headCell.label} <IconButton onClick={setModalOpen}><InfoIcon fontSize="small" style={{ marginTop: '-3px' }} /></IconButton></div>
+                  <div>{headCell.label}<IconButton onClick={setModalOpen}><InfoIcon fontSize="small" style={{ marginTop: '-3px' }} /></IconButton></div>
                 );
               } else {
                 return <div>{headCell.label}</div>;
