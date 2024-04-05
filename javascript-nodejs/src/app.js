@@ -5,6 +5,10 @@ const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
+const { refreshAccessToken, fetchAccessToken } = require('./spotify');
+const { get, post } = require('./axios');
+
+
 let client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 let client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
 let redirect_uri = process.env.SPOTIFY_REDIRECT_LINK; // Your redirect uri
@@ -110,6 +114,56 @@ app.get('/callback', function (req, res) {
         });
     }
 });
+
+
+app.get('/getspotifydata', async function (req, res) {
+    const refreshToken = await refreshAccessToken();
+    const access_token = await fetchAccessToken();
+    const result = { previousSongs: [], topSongs: [], topArtists: [] }
+
+    const getCallConfig = {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    }
+
+    const getPreviousSongPlayed = await get('https://api.spotify.com/v1/me/player/recently-played?limit=50', getCallConfig);
+
+    const getTopSongs = await get('https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10', getCallConfig);
+
+    const getTopArtists = await get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=5', getCallConfig);
+
+    getPreviousSongPlayed.items.map((item) => {
+        result.previousSongs.push({
+            name: item.track.name,
+            linkSpotify: item.track.external_urls.spotify,
+            linkPreview: item.track.preview_url,
+            artists: item.track.artists.map(artist => artist.name).join(', '),
+            albumPic: item.track.album.images[0].url
+        });
+    });
+
+    getTopSongs.items.map((item) => {
+        result.topSongs.push({
+            name: item.name,
+            linkSpotify: item.external_urls.spotify,
+            artists: item.artists.map(artist => artist.name).join(', '),
+            artistPic: item.album.images[0].url
+        });
+    });
+
+    getTopArtists.items.map((item) => {
+        result.topArtists.push({
+            name: item.name,
+            linkSpotify: item.external_urls.spotify,
+            artistPic: item.images[0].url
+        });
+    });
+
+    res.json(result);
+
+});
+
 
 
 
