@@ -13,11 +13,20 @@ import GradesHelpModal from '../components/GradesHelpModal';
 const GradesPage = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const initialGridLayout = queryParams.has('gridlayout') ? queryParams.get('gridlayout') as GridLayoutTypes : "normal";
-
   const [jsonData, setJsonData] = useState<GridDataInterface[]>([]);
   const [filteredData, setFilteredData] = useState<GridDataInterface[]>([]);
   const [disableFilters, setDisableFilters] = useState<boolean>(false);
   const [modalShowing, setSetModalShowing] = useState<boolean>(false);
+  const [filterOptions, setFilterOptions] = useState<FilterOptionInterface>({
+    careerOptions: [] as CareerCount[],
+    departmentOptions: [] as DepartmentCount[]
+  });
+  const [selectedFilters, setSelectedFilters] = useState({
+    gridLayoutFilter: initialGridLayout,
+    careerFilter: "",
+    departmentFilter: filterOptions.departmentOptions.map(item => item.department) as string[]
+  });
+
 
   const openModal = () => {
     setSetModalShowing(true);
@@ -26,18 +35,6 @@ const GradesPage = () => {
   const closeModal = () => {
     setSetModalShowing(false);
   }
-
-  const [filterOptions, setFilterOptions] = useState<FilterOptionInterface>({
-    careerOptions: [] as CareerCount[],
-    departmentOptions: [] as DepartmentCount[]
-  });
-
-
-  const [selectedFilters, setSelectedFilters] = useState({
-    gridLayoutFilter: initialGridLayout,
-    careerFilter: "",
-    departmentFilter: filterOptions.departmentOptions.map(item => item.department)
-  });
 
 
   const handleFilterChange = (event: SelectChangeEvent) => {
@@ -56,15 +53,27 @@ const GradesPage = () => {
         ...selectedFilters,
         careerFilter: newValue
       });
-    } else if (filterName == "filterDepartments") {
+    }
+    /*
+    else if (filterName == "filterDepartments") {
+      const { target: { value }, } = event;
       setSelectedFilters({
         ...selectedFilters,
         departmentFilter: typeof newValue === 'string' ? newValue.split(',') : newValue
       });
+
+    */
     };
 
+  const handleChangeDepartments = (event: SelectChangeEvent<typeof selectedFilters.departmentFilter>) => {
+    const { target: { value } } = event;
 
+    setSelectedFilters({
+      ...selectedFilters,
+      departmentFilter: typeof value === 'string' ? value.split(',') : value
+    });
   };
+
 
   // Function to fetch unique values along with count from gridData
   const fetchUniqueValuesWithCount = (data: GridDataInterface[]) => {
@@ -182,7 +191,7 @@ const GradesPage = () => {
 
   return (
     <div style={{ minWidth: "800px" }}>
-      <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} resetFilters={resetFilters} disableFilters={disableFilters} />
+      <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} handleChangeDepartments={handleChangeDepartments} resetFilters={resetFilters} disableFilters={disableFilters} />
       {selectedFilters.gridLayoutFilter === "normal" && <GradesGrid gridData={filteredData} setModalOpen={openModal} />}
       {selectedFilters.gridLayoutFilter === "term-grouping" && <GradesGridGrouping gridData={jsonData} setModalOpen={openModal} />}
       <GradesHelpModal open={modalShowing} handleClose={closeModal} />

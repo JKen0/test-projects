@@ -13,11 +13,12 @@ interface GridFilterBarProps {
     filterOptions: FilterOptionInterface;
     selectedFilters: SelectedFilterInterface,
     handleFilterChange: (event: SelectChangeEvent) => void;
+    handleChangeDepartments: (event: SelectChangeEvent<string[]>) => void;
     resetFilters: () => void;
     disableFilters: boolean;
 }
 
-const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, resetFilters, disableFilters }: GridFilterBarProps) => {
+const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, resetFilters, disableFilters, handleChangeDepartments }: GridFilterBarProps) => {
 
     return (
         <div>
@@ -56,10 +57,10 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, res
                 <Select
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
-                    multiple
+                    multiple={true}
                     disabled={disableFilters}
                     value={selectedFilters.departmentFilter}
-                    onChange={handleFilterChange}
+                    onChange={handleChangeDepartments}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => {
                         if (selected.length === 1) {
