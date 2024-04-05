@@ -17,8 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from '@mui/utils';
 import { CheckCircle } from '@mui/icons-material';
 import { Order, headCells } from '../Types/GridDataTypes';
-import TablePagination from '@mui/material/TablePagination';
-import TableFooter from '@mui/material/TableFooter';
+import Tooltip from '@mui/material/Tooltip';
 
 interface Props {
   gridData: GridDataInterface[];
@@ -53,6 +52,7 @@ const EnhancedTableHead = (props: EnhancedTableProps) => {
             key={headCell.id}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
+            style={{ fontSize: "large" }}
           >
             {headCell.sortable ? (
               <TableSortLabel
@@ -99,7 +99,9 @@ const MasterRow = ({ row }: MasterRowProps) => {
         <TableCell>{row.Grade}</TableCell>
         <TableCell>{`${row.Units}.00`}</TableCell>
         <TableCell>
-          <CheckCircle fontSize="medium" />
+          <Tooltip title="Completed" placement="top-start">
+            <CheckCircle fontSize="small" />
+          </Tooltip>
         </TableCell>
       </TableRow>
       <TableRow>

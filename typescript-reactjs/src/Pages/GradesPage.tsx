@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import GradesGrid from '../components/GradesGrid';
+import GradesGridGrouping from '../components/GradesGridGrouping';
 import axios from 'axios';
 import testData from '../testData/convertcsv.json';
 import { GridDataInterface } from '../Types/GridDataTypes';
@@ -9,8 +10,12 @@ import { json } from 'react-router-dom';
 import { SelectChangeEvent } from '@mui/material/Select';
 
 const GradesPage = () => {
+  const queryParams = new URLSearchParams(window.location.search);
+  const initialGridLayout = queryParams.has('gridlayout') ? queryParams.get('gridlayout') as GridLayoutTypes : "normal";
+
   const [jsonData, setJsonData] = useState<GridDataInterface[]>([]);
   const [filteredData, setFilteredData] = useState<GridDataInterface[]>([]);
+  const [disableFilters, setDisableFilters] = useState<boolean>(false);
 
   const [filterOptions, setFilterOptions] = useState<FilterOptionInterface>({
     careerOptions: [] as CareerCount[],
@@ -19,7 +24,7 @@ const GradesPage = () => {
 
 
   const [selectedFilters, setSelectedFilters] = useState({
-    gridLayoutFilter: "normal" as GridLayoutTypes,
+    gridLayoutFilter: initialGridLayout,
     careerFilter: "",
     departmentFilter: filterOptions.departmentOptions.map(item => item.department)
   });
@@ -28,6 +33,7 @@ const GradesPage = () => {
   const handleFilterChange = (event: SelectChangeEvent) => {
     const filterName = event.target.name;
     const newValue = event.target.value;
+
 
     if (filterName == "filterGridLayout") {
       const newGridLayOutOption = event.target.value as GridLayoutTypes;
@@ -45,7 +51,9 @@ const GradesPage = () => {
         ...selectedFilters,
         departmentFilter: typeof newValue === 'string' ? newValue.split(',') : newValue
       });
-    }
+    };
+
+
   };
 
   // Function to fetch unique values along with count from gridData
@@ -102,6 +110,8 @@ const GradesPage = () => {
     setFilteredData(newFilteredData);
   };
 
+
+
   useEffect(() => {
     // Fetch JSON data from your API or local file
     setJsonData(testData);
@@ -109,10 +119,13 @@ const GradesPage = () => {
   }, []);
 
   useEffect(() => {
+
     fetchUniqueValuesWithCount(jsonData);
     setFilteredData(jsonData);
   }, [jsonData]);
 
+
+  // populate filter selections when the filter options load
   useEffect(() => {
   // set initial selected filters
     setSelectedFilters({
@@ -122,15 +135,36 @@ const GradesPage = () => {
     });
   }, [filterOptions]);
 
-  useEffect(() => {
-    // when filters change, filter the data accordingly 
-    handleDataFilter();
 
-  }, [selectedFilters.departmentFilter, selectedFilters.careerFilter]);
+  // filter data onn grid type change
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set('gridlayout', selectedFilters.gridLayoutFilter);
+    window.history.replaceState({}, '', `${window.location.pathname}?${queryParams}`);
+
+    if (selectedFilters.gridLayoutFilter === "term-grouping") {
+      setDisableFilters(true);
+      resetFilters();
+    } else {
+      // when filters change, filter the data accordingly 
+      handleDataFilter();
+      setDisableFilters(false);
+    }
+
+
+
+  }, [selectedFilters.gridLayoutFilter]);
+
+  // filter data
+  useEffect(() => {
+    handleDataFilter();
+  }, [selectedFilters.careerFilter, selectedFilters.departmentFilter]);
+
+
 
   const resetFilters = () => {
     setSelectedFilters({
-      gridLayoutFilter: "normal",
+      ...selectedFilters,
       careerFilter: "All",
       departmentFilter: filterOptions.departmentOptions.map(item => item.department)
     });
@@ -139,8 +173,9 @@ const GradesPage = () => {
 
   return (
     <div style={{ minWidth: "800px" }}>
-      <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} resetFilters={resetFilters} />
-      <GradesGrid gridData={filteredData} />
+      <GridFilterBar filterOptions={filterOptions} selectedFilters={selectedFilters} handleFilterChange={handleFilterChange} resetFilters={resetFilters} disableFilters={disableFilters} />
+      {selectedFilters.gridLayoutFilter === "normal" && <GradesGrid gridData={filteredData} />}
+      {selectedFilters.gridLayoutFilter === "term-grouping" && <GradesGridGrouping gridData={jsonData} />}
     </div>
   )
 }

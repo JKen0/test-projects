@@ -14,9 +14,11 @@ interface GridFilterBarProps {
     selectedFilters: SelectedFilterInterface,
     handleFilterChange: (event: SelectChangeEvent) => void;
     resetFilters: () => void;
+    disableFilters: boolean;
 }
 
-const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, resetFilters }: GridFilterBarProps) => {
+const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, resetFilters, disableFilters }: GridFilterBarProps) => {
+
     return (
         <div>
             <FormControl sx={{ m: 1, minWidth: 175 }}>
@@ -41,6 +43,7 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, res
                     onChange={handleFilterChange}
                     name="filterCareer"
                     value={selectedFilters.careerFilter}
+                    disabled={disableFilters}
 
                 >
                     {filterOptions.careerOptions.map((ele, index) => (
@@ -54,6 +57,7 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, res
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
+                    disabled={disableFilters}
                     value={selectedFilters.departmentFilter}
                     onChange={handleFilterChange}
                     input={<OutlinedInput label="Tag" />}
@@ -82,6 +86,7 @@ const GridFilterBar = ({ filterOptions, selectedFilters, handleFilterChange, res
                 sx={{ m: 1, width: 65, height: 54, marginLeft: 2 }} // Adjust marginLeft to push the button to the right
                 variant="outlined"
                 onClick={resetFilters}
+                disabled={disableFilters}
             >
                 RESET
             </Button>
