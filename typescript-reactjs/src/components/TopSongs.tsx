@@ -1,6 +1,12 @@
 import React from 'react'
 
-const TopSongs = () => {
+import { TopSongsTypes } from '../Types/MusicTypes';
+
+interface TopSongsProps {
+    data: TopSongsTypes[];
+}
+
+const TopSongs = ({ data }: TopSongsProps) => {
     return (
         <div>TopSongs</div>
     )

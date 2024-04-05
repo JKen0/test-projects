@@ -134,8 +134,10 @@ app.get('/getspotifydata', async function (req, res) {
     const getTopArtists = await get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=5', getCallConfig);
 
     getPreviousSongPlayed.items.map((item) => {
+        console.log(item.track.played_at)
         result.previousSongs.push({
             name: item.track.name,
+            timePlayed: item.played_at,
             linkSpotify: item.track.external_urls.spotify,
             linkPreview: item.track.preview_url,
             artists: item.track.artists.map(artist => artist.name).join(', '),
