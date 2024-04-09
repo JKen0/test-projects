@@ -90,8 +90,10 @@ client.on('message', async (channel, tags, message, self) => {
 
         // TIMER LOGIC
     } else if (command === 'timer') {
-        const regex = /^!timer\s+(\d+)\s*(?:(@\w+(?:_\w*)?)?\s*)?(?:"([^"]*)")?$/;
+        const regex = /^!timer\s+(\d{1,3})\s*(@\w+)?\s*(".*")?$/;
         const match = message.match(regex);
+
+        console.log(message);
 
         if (!match) {
             client.reply(channel, `@${tags.username} Invalid Timer Format.`, tags.id);
@@ -100,13 +102,14 @@ client.on('message', async (channel, tags, message, self) => {
 
         let [, timerDuration, timerUser, timerMessage] = match;
         timerUser = timerUser ? timerUser : tags.username;
+        startsWithAt = timerUser[0] === "@" ? true : false;
 
         startTimer(timerUser, timerDuration, () => {
-            client.say(channel, `${timerUser[0] === '@' ? '' : '@'}${timerUser}, Time Is Up DinkDonk Timer Expired DinkDonk ${timerMessage ? timerMessage : ''}`);
+            client.say(channel, `${startsWithAt ? "" : "@"}${timerUser}, Time Is Up DinkDonk Timer Expired DinkDonk ${timerMessage ? timerMessage : ''}`);
         });
 
         client.reply(channel, `@${tags.username}, Your ${timerDuration} minute timer has been set Waiting`, tags.id);
         return;
-
+    }
 });
 
