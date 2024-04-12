@@ -1,10 +1,10 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
-const SpotifyWebApi = require('spotify-web-api-node');
-
+const fs = require('fs');
 
 const { startTimer } = require('./timer');
 const { refreshAccessToken, getCurrentSong, getPreviousSong } = require('./spotify');
+
 
 
 const client = new tmi.Client({
@@ -110,6 +110,18 @@ client.on('message', async (channel, tags, message, self) => {
 
         client.reply(channel, `@${tags.username}, Your ${timerDuration} minute timer has been set Waiting`, tags.id);
         return;
+    } else if (command === "nap") {
+        const fileData = fs.readFileSync(process.env.DATA_JSON, 'utf8');
+        let jsonData = JSON.parse(fileData);
+
+        // check if value exists, if so add 1 to it and update new jsonData
+        let numNaps = jsonData.naps[tags.username] ? jsonData.naps[tags.username] + 1 : 1;
+        jsonData.naps[tags.username] = numNaps;
+
+        //write back to file with updated values
+        fs.writeFileSync(process.env.DATA_JSON, JSON.stringify(jsonData, null, 2), 'utf8');
+
+        client.say(channel, `${tags.username} has napped a total of ${numNaps} times. Bedge`);
     }
 });
 
