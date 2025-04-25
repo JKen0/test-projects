@@ -70,19 +70,25 @@ client.on('message', async (channel, tags, message, self) => {
 
         // DICE LOGIC
     } else if (command === 'dice') {
-        numRolls = args.length > 0 ? args[0] : 1;
-        maxDiceNum = args.length > 1 ? args[1] : 6;
+        numRolls = args.length > 0 ? parseInt(args[0]) : 1;
+        maxDiceNum = args.length > 1 ? parseInt(args[1]) : 6;
 
-        if (!Number.isInteger(parseInt(numRolls)) || !Number.isInteger(parseInt(maxDiceNum))) {
-            client.reply(channel, `@${tags.username}, Invalid Dice Format`, tags.id);
+        if (!Number.isInteger(numRolls) || !Number.isInteger(maxDiceNum) || numRolls > maxDiceNum || numRolls < 1 || maxDiceNum < 1) {
+            client.reply(channel, `@${tags.username}, Invalid Dice Format or too many rolls requested`, tags.id);
             return;
         }
 
-        let result = [];
-        while (result.length < numRolls) {
-            const randomNumber = Math.floor(Math.random() * maxDiceNum) + 1;
-            result.push(randomNumber);
+        // Generate array of numbers from 1 to maxDiceNum
+        let numbers = Array.from({ length: maxDiceNum }, (_, i) => i + 1);
+
+        // Shuffle the array
+        for (let i = numbers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
         }
+
+        // Take the first numRolls values
+        let result = numbers.slice(0, numRolls);
 
         client.reply(channel, `@${tags.username}, You rolled a ${result.join(' ')} GAMBA`, tags.id);
         return;
@@ -122,6 +128,29 @@ client.on('message', async (channel, tags, message, self) => {
         fs.writeFileSync(process.env.DATA_JSON, JSON.stringify(jsonData, null, 2), 'utf8');
 
         client.say(channel, `${tags.username} has napped a total of ${numNaps} times. Bedge`);
+    } else if (command === "time") {
+        // Get the current time in Singapore
+        const singaporeTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Singapore" });
+        const date = new Date(singaporeTime);
+
+        // Store the current time (hours and minutes)
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+
+        // Subtract one day
+        date.setDate(date.getDate() - 1);
+
+        // Format the date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = date.toLocaleDateString("en-US", options);
+
+        // Add the same time to the message
+        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Reply with the formatted message
+        client.reply(channel, `The current date in Singpore is ${formattedDate} at ${formattedTime} Smile`, tags.id);
     }
+
 });
 
